@@ -61,18 +61,20 @@ public class TestRegisterMuabantinhbien {
 		WebDriver driver = ChromeConfig.getDriverAllSetUp();
 		driver.get(url);
 
-		boolean isRegister = ableToDoRegister(driver, username, email, password);
+		doRegister(driver, username, email, password);
 		String actual = RegisterResult.FAILED_INVALID_INPUT.getValue();
-		if (isRegister) {
-			ChromeConfig.setTimeout(5);
+		ChromeConfig.setTimeout(5);
+		try {
+			String logContent = driver.findElement(By.xpath(xPaths.get("txtLog"))).getText();
+			System.out.println("log content: >>" + logContent);
+			actual = (logContent.contains(RegisterResult.FAILED_USERNAME.getValue()))
+					? RegisterResult.FAILED_USERNAME.getValue()
+					: RegisterResult.FAILED_EMAIL.getValue();
+		} catch (NoSuchElementException e) {
 			try {
-				String logContent = driver.findElement(By.xpath(xPaths.get("txtLog"))).getText();
-				System.out.println("log content: >>" + logContent);
-				actual = (logContent.contains(RegisterResult.FAILED_USERNAME.getValue()))
-						? RegisterResult.FAILED_USERNAME.getValue()
-						: RegisterResult.FAILED_EMAIL.getValue();
-			} catch (NoSuchElementException e) {
+				driver.findElement(By.xpath(xPaths.get("btnLogout")));
 				actual = RegisterResult.SUCCEED.getValue();
+			} catch (NoSuchElementException e1) {
 			}
 		}
 		driver.quit();
@@ -101,7 +103,7 @@ public class TestRegisterMuabantinhbien {
 		}
 	}
 
-	private boolean ableToDoRegister(WebDriver driver, String username, String email, String password) {
+	private void doRegister(WebDriver driver, String username, String email, String password) {
 		WebElement usernameInput = driver.findElement(By.xpath(xPaths.get("txtUsername")));
 		usernameInput.sendKeys(username);
 		WebElement emailInput = driver.findElement(By.xpath(xPaths.get("txtEmail")));
@@ -110,16 +112,6 @@ public class TestRegisterMuabantinhbien {
 		passwordInput.sendKeys(password);
 		WebElement registerButton = driver.findElement(By.xpath(xPaths.get("btnRegister")));
 		registerButton.click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xPaths.get("btnRegister"))));
-
-        // Get the value of the 'disabled' attribute
-        String disabledAttributeValue = button.getAttribute("disabled");
-
-//		ChromeConfig.setTimeout(2);
-		return Objects.isNull(disabledAttributeValue);
-//		return true;
-
 	}
 
 	@AfterClass
