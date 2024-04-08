@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="MyTestSuite">
+    <test name="MyTest">
+        <classes>
+            <class name="TestRegisterMuabantinhbien"/>
+            <class name="TestLoginMuabantinhbien"/>
+            <!-- Thêm các class test khác nếu cần -->
+        </classes>
+    </test>
+</suite>
