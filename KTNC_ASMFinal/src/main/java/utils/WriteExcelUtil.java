@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import constant.LoginResult;
+import constant.RegisterResult;
 
 public class WriteExcelUtil {
 	private static String fileName = "test-case.xlsx";
@@ -76,6 +77,10 @@ public class WriteExcelUtil {
 		String[] result = arr[1].split("found");
 		String expected = getOutputResult(result[0]).equals("true") ? LoginResult.SUCCEED.getValue() : LoginResult.FAILED.getValue();
 		String actual = getOutputResult(result[1]).equals("true")  ? LoginResult.SUCCEED.getValue() : LoginResult.FAILED.getValue();
+		if (testcaseId.equals("REG")) {
+			expected = getOutputResult(result[0]).equals("true") ? RegisterResult.SUCCEED.getValue() : RegisterResult.FAILED.getValue();
+			actual = getOutputResult(result[1]).equals("true")  ? RegisterResult.SUCCEED.getValue() : RegisterResult.FAILED.getValue();			
+		}
 		String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
         Row emptyRow = null;
