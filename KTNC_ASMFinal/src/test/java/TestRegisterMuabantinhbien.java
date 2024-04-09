@@ -69,7 +69,9 @@ public class TestRegisterMuabantinhbien {
 			System.out.println("log content: >>" + logContent);
 			actual = (logContent.contains(RegisterResult.FAILED_USERNAME.getValue()))
 					? RegisterResult.FAILED_USERNAME.getValue()
-					: RegisterResult.FAILED_EMAIL.getValue();
+					: (logContent.contains(RegisterResult.FAILED_EMAIL.getValue()))
+					? RegisterResult.FAILED_EMAIL.getValue()
+							:RegisterResult.FAILED.getValue();
 		} catch (NoSuchElementException e) {
 			try {
 				driver.findElement(By.xpath(xPaths.get("btnLogout")));
