@@ -5,7 +5,7 @@
     <classes>
       <class name="TestRegisterMuabantinhbien">
         <methods>
-          <include name="testLoginMuaBanTinhBien" invocation-numbers="2"/>
+          <include name="testLoginMuaBanTinhBien" invocation-numbers="2 3"/>
           <include name="tearDown"/>
           <include name="setUp"/>
         </methods>

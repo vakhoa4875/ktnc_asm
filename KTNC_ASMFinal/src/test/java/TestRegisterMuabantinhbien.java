@@ -71,6 +71,7 @@ public class TestRegisterMuabantinhbien {
 					? RegisterResult.FAILED_USERNAME.getValue()
 					: RegisterResult.FAILED_EMAIL.getValue();
 		} catch (NoSuchElementException e) {
+			System.out.println("exception message>>>" + e.getMessage());
 			actual = RegisterResult.SUCCEED.getValue();
 		}
 		driver.quit();
@@ -82,6 +83,7 @@ public class TestRegisterMuabantinhbien {
 		} catch (AssertionError e) {
 			this.wasSuccessfully = false;
 			try {
+				System.out.println("to local message: " + e.getLocalizedMessage() + "\nto message: " + e.getMessage());
 				WriteExcelUtil.writeTestDefect(testCaseId + "_" + caseNum, e.getLocalizedMessage());
 			} catch (IOException e1) {
 				e1.printStackTrace();
